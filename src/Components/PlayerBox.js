@@ -29,36 +29,57 @@ export class PlayerBox extends Component {
           {/* END HERO POKEMON AVATAR PICTURE */}
 
           {/* HERO POKEMON INFO BOX */}
-          <div id="hero-info-box">
-            <div className="d-flex justify-content-between align-items-center">
-              <h2 id="hero-name">{this.props.playerName}</h2>
-              <h5 className="mr-1 d-none d-sm-block">
-                Lv
-                {this.props.playerLevel}
-              </h5>
-            </div>
-            <div className="d-flex justify-content-between align-items-center ml-3 mr-1">
-              <h5>HP</h5>
-              <div className="progress ml-1 both-progress">
-                <div
-                  className={progressColor}
-                  role="progressbar"
-                  style={{ width: percentage }}
-                  aria-valuenow="75"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                />
+          <div class="w-100">
+            <div id="hero-info-box">
+              <div className="d-flex justify-content-between align-items-center">
+                <h2 id="hero-name">{this.props.playerName}</h2>
+                <h5 className="mr-1 d-none d-sm-block">
+                  Lv
+                  {this.props.playerLevel}
+                </h5>
+              </div>
+              <div className="d-flex justify-content-between align-items-center ml-3 mr-1">
+                <h5>HP</h5>
+                <div className="progress ml-1 both-progress">
+                  <div
+                    className={progressColor}
+                    role="progressbar"
+                    style={{ width: percentage }}
+                    aria-valuenow="75"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  />
+                </div>
+              </div>
+              <div id="hero-hp" className="d-flex justify-content-between">
+                <div className="ml-3 mr-3 float-left">
+                  <h5>
+                    Rank #{this.props.playerRank}
+                  </h5>
+                </div>
+                <div className="ml-3 mr-3 float-right">
+                  <h5>
+                    {this.props.playerHP}/{this.props.playerMaxHP}
+                  </h5>
+                </div>
               </div>
             </div>
-            <div id="hero-hp" className="d-flex">
-              <div className="ml-auto mr-3">
-                <h5>
-                  {this.props.playerHP}/{this.props.playerMaxHP}
-                </h5>
+            {/* END HERO POKEMON INFO BOX */}
+            <div class="team-container d-flex justify-content-between">
+              <div class="hero-border mr-1 ml-1 parallelogram">
+                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
+              </div>
+              <div class="hero-border mr-1 ml-1 parallelogram">
+                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
+              </div>
+              <div class="hero-border mr-1 ml-1 parallelogram">
+                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
+              </div>
+              <div class="hero-border mr-1 ml-1 parallelogram">
+                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
               </div>
             </div>
           </div>
-          {/* END HERO POKEMON INFO BOX */}
         </div>
         {/* END HERO POKEMON CONTAINER */}
       </div>

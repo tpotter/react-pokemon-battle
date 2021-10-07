@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-export default class EnemyAvatar extends PureComponent {
+export default class PlayerAvatar extends PureComponent {
   render() {
     let faint = this.props.playerFaint;
     let anim;
@@ -15,7 +15,7 @@ export default class EnemyAvatar extends PureComponent {
     }
     return (
       <div className={anim}>
-        <img className="avatar mx-2" src="./img/hero.png" alt="" />
+        <img className="avatar" src="https://dinosols.app/images/Dino_dubya.png" alt="" />
       </div>
     );
   }

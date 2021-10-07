@@ -42,6 +42,18 @@ export class EnemyBox extends Component {
                 />
               </div>
             </div>
+            <div id="enemy-hp" className="d-flex justify-content-between">
+              <div className="ml-3 mr-3 float-left">
+                <h5>
+                  Rank #{this.props.enemyRank}
+                </h5>
+              </div>
+              <div className="ml-3 mr-3 float-right">
+                <h5>
+                  {this.props.enemyHP}/{this.props.enemyMaxHP}
+                </h5>
+              </div>
+            </div>
           </div>
           {/* END ENEMY POKEMON INFO BOX */}
 
