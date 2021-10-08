@@ -3,10 +3,10 @@ import "./animate.css";
 import "./bootstrap.css";
 import "./App.css";
 import TextBox from "./Components/TextBox";
-import Attacks from "./Components/Attacks";
-import EnemyBox from "./Components/EnemyBox";
-import PlayerBox from "./Components/PlayerBox";
-import PlayAgain from "./Components/PlayAgain";
+import Attacks from "./Components/BattleInterface/Attacks";
+import EnemyBox from "./Components/BattleInterface/EnemyBox";
+import PlayerBox from "./Components/BattleInterface/PlayerBox";
+import PlayAgain from "./Components/BattleInterface/PlayAgain";
 
 class App extends Component {
     state = {
@@ -191,70 +191,65 @@ class App extends Component {
     };
 
     render() {
-        return ( <
-            div className = "container h-100" >
-            <
-            div className = "row row h-100 justify-content-center align-items-center" >
-            <
-            div className = "col-sm-12" > { /* BATTLE SCREEN CONTAINER */ } <
-            div id = "battle-container"
-            className = "px-2 mx-auto" >
-            <
-            EnemyBox enemyName = { this.state.enemyName }
-            enemyLevel = { this.state.enemyLevel }
-            enemyHP = { this.state.enemyHP }
-            enemyMaxHP = { this.state.enemyMaxHP }
-            enemyFaint = { this.state.enemyFaint }
-            enemyRank = { this.state.enemyRank }
-            />
-
-            <
-            PlayerBox playerName = { this.state.playerName }
-            playerLevel = { this.state.playerLevel }
-            playerHP = { this.state.playerHP }
-            playerMaxHP = { this.state.playerMaxHP }
-            playerFaint = { this.state.playerFaint }
-            playerRank = { this.state.playerRank }
-            />
-
-            { /* TEXT BOX SECTION */ } <
-            div id = "text-box" >
-            <
-            div id = "text-box-content" > {
-                this.state.textMessageOne !== "" &&
-                this.state.gameOver === false && ( <
-                    TextBox messageOne = { this.state.textMessageOne }
-                    messageTwo = { this.state.textMessageTwo }
-                    />
-                )
-            }
-
-            {
-                this.state.textMessageOne === "" &&
-                    this.state.gameOver === false &&
-                    Object.keys(this.state.playerAttacks).map((key, index) => {
-                        return ( <
-                            Attacks key = { key }
-                            index = { index }
-                            details = { this.state.playerAttacks[key] }
-                            handleAttackClick = { this.handleAttackClick }
+        return ( 
+            <div className = "container h-100" >
+                <div className = "row row h-100 justify-content-center align-items-center" >
+                    <div className = "col-sm-12" > { /* BATTLE SCREEN CONTAINER */ } 
+                        <div id = "battle-container" className = "px-2 mx-auto" >
+                            <EnemyBox enemyName = { this.state.enemyName }
+                                enemyLevel = { this.state.enemyLevel }
+                                enemyHP = { this.state.enemyHP }
+                                enemyMaxHP = { this.state.enemyMaxHP }
+                                enemyFaint = { this.state.enemyFaint }
+                                enemyRank = { this.state.enemyRank }
                             />
-                        );
-                    })
-            }
+                            <PlayerBox playerName = { this.state.playerName }
+                                playerLevel = { this.state.playerLevel }
+                                playerHP = { this.state.playerHP }
+                                playerMaxHP = { this.state.playerMaxHP }
+                                playerFaint = { this.state.playerFaint }
+                                playerRank = { this.state.playerRank }
+                            />
 
-            {
-                this.state.gameOver === true && ( <
-                    PlayAgain handlePlayAgain = { this.handlePlayAgain }
-                    />
-                )
-            } <
-            /div> <
-            /div> { /* END TEXT BOX SECTION */ } <
-            /div> { /* END BATTLE SCREEN CONTAINER */ } <
-            /div> <
-            /div> <
-            /div>
+                            { /* TEXT BOX SECTION */ } 
+                            <div id = "text-box" >
+                                <div id = "text-box-content" > 
+                                    {
+                                        this.state.textMessageOne !== "" &&
+                                        this.state.gameOver === false && ( <
+                                            TextBox messageOne = { this.state.textMessageOne }
+                                            messageTwo = { this.state.textMessageTwo }
+                                            />
+                                        )
+                                    }
+
+                                    {
+                                        this.state.textMessageOne === "" &&
+                                            this.state.gameOver === false &&
+                                            Object.keys(this.state.playerAttacks).map((key, index) => {
+                                                return ( <
+                                                    Attacks key = { key }
+                                                    index = { index }
+                                                    details = { this.state.playerAttacks[key] }
+                                                    handleAttackClick = { this.handleAttackClick }
+                                                    />
+                                                );
+                                            })
+                                    }
+                                    {
+                                        this.state.gameOver === true && ( <
+                                            PlayAgain handlePlayAgain = { this.handlePlayAgain }
+                                            />
+                                        )
+                                    }
+                                </div> 
+                            </div> 
+                            { /* END TEXT BOX SECTION */ } 
+                        </div> 
+                        { /* END BATTLE SCREEN CONTAINER */ }
+                    </div>
+                </div> 
+            </div>
         );
     }
 }

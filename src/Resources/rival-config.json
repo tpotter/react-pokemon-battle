@@ -1,0 +1,12 @@
+{
+    "playerName": "Blue",
+    "playerDinosols": [
+        {
+            "dinosolType": 90002,
+            "dinosolNickname": null,
+            "dinosolExp": 0,
+            "dinosolLvl": 100,
+            "dinosolHealth": 400
+        }
+    ]
+}

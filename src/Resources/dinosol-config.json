@@ -1,0 +1,77 @@
+{
+    "dinosols": [
+        {
+            "dinosolId": 90001,
+            "dinosolName": "Dino Dubya",
+            "dinosolAttacks": [4001, 4002, 4003, 4004]
+        },
+        {
+            "dinosolId": 90002,
+            "dinosolName": "Poshasaurus",
+            "dinosolAttacks": [4005, 4006, 4007, 4008]
+        }
+    ],
+    "attacks" : [
+        {
+            "attackId": 4001,
+            "attackName": "Bite",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 10
+        },
+        {
+            "attackId": 4002,
+            "attackName": "Scratch",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 30
+        },
+        {
+            "attackId": 4003,
+            "attackName": "Slash",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 35
+        },
+        {
+            "attackId": 4004,
+            "attackName": "Pack Hunt",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 45
+        },
+        {
+            "attackId": 4005,
+            "attackName": "Hex",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 10
+        },{
+            "attackId": 4006,
+            "attackName": "Shadow Ball",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 30
+        },{
+            "attackId": 4007,
+            "attackName": "Dream Eater",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 35
+        },{
+            "attackId": 4008,
+            "attackName": "Nightmare",
+            "attackType": null,
+            "attackEffect": null,
+            "effectProbability": null,
+            "attackDamage": 45
+        }
+    ]
+}
