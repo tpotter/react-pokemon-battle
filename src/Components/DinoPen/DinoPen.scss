@@ -1,0 +1,46 @@
+#dino-pen-container {
+    color: #fafafa;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+
+    .back-button {
+        position: absolute;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    #dino-pen-content {
+        
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 48px;
+        width: 80%;
+
+        #dino-pen-flex {
+            background-color: #ff0000;
+            display: flex;
+            width: 100%;
+            transition: width 0.2s ease-in 0s;
+        }
+    
+        #dino-detail-container {
+            background-color: #00ff00;
+            display: block;
+            height: 100vh;
+            width: 0%;
+            transition: width 0.2s ease-in 0s;
+        }
+
+        .dino-detail-expanded #dino-pen-flex {
+            width: 50%;
+        }
+
+        .dino-detail-expanded #dino-detail-container {
+            width: 50%;
+        }
+    }
+    
+}

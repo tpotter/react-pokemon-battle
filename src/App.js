@@ -1,257 +1,61 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./animate.css";
 import "./bootstrap.css";
-import "./App.css";
-import TextBox from "./Components/TextBox";
-import Attacks from "./Components/BattleInterface/Attacks";
-import EnemyBox from "./Components/BattleInterface/EnemyBox";
-import PlayerBox from "./Components/BattleInterface/PlayerBox";
-import PlayAgain from "./Components/BattleInterface/PlayAgain";
+import "./App.scss";
+import Home from "./Components/Home/Home";
+import DinoPen from "./Components/DinoPen/DinoPen";
+import Leaderboard from "./Components/Leaderboard/Leaderboard";
 
-class App extends Component {
-    state = {
-        playerName: "Dino Dubya",
-        playerLevel: 45,
-        playerHP: 200,
-        playerMaxHP: 200,
-        playerRank: 40,
-        playerAttacks: {
-            attackOne: { name: "Bite", damage: 10 },
-            attackTwo: { name: "Scratch", damage: 30 },
-            attackThree: { name: "Slash", damage: 35 },
-            attackFour: { name: "Pack Hunt", damage: 45 }
-        },
-        playerFaint: "",
-        enemyName: "Poshasaurus",
-        enemyLevel: 43,
-        enemyHP: 200,
-        enemyMaxHP: 200,
-        enemyRank: 39,
-        enemyAttackNames: ["Hex", "Shadow Ball", "Dream Eater", "Nightmare"],
-        enemyAttackDamage: [10, 30, 35, 45],
-        enemyFaint: "",
-        textMessageOne: " ",
-        textMessageTwo: "",
-        gameOver: false
-    };
 
-    componentDidMount() {
-        this.startingSequence();
-    }
+function App() {
+    
+    const [currentView, setCurrentView] = useState(0);
 
-    componentDidUpdate() {}
-
-    startingSequence = () => {
-        setTimeout(() => {
-            this.setState(
-                () => {
-                    return {
-                        textMessageOne: `A wild ${this.state.enemyName} appeared!`,
-                        enemyFaint: false
-                    };
-                },
-                () => {
-                    setTimeout(() => {
-                        this.setState({
-                                textMessageOne: `Go ${this.state.playerName}!`,
-                                playerFaint: false
-                            },
-                            () => {
-                                setTimeout(() => {
-                                    this.setState({
-                                        textMessageOne: ""
-                                    });
-                                }, 3000);
-                            }
-                        );
-                    }, 3000);
-                }
-            );
-        }, 1000);
-    };
-
-    enemyTurn = (enemyAttackName, enemyAttackDamage) => {
-        enemyAttackDamage = enemyAttackDamage + Math.floor(Math.random() * 11);
-        // first, check if enemy fainted. End Game if they did.
-        if (this.state.enemyHP === 0) {
-            this.setState({
-                    textMessageOne: `${this.state.enemyName} fainted.`,
-                    textMessageTwo: `${this.state.playerName} wins!`,
-                    enemyFaint: true
-                },
-                () => {
-                    setTimeout(() => {
-                        this.setState({
-                            gameOver: true
-                        });
-                    }, 3000);
-                }
-            );
-        } else {
-            // if enemy is still alive, proceed with enemy turn
-
-            this.setState(
-                prevState => {
-                    if (prevState.playerHP - enemyAttackDamage <= 0) {
-                        return {
-                            playerHP: 0,
-                            textMessageOne: `${
-                this.state.enemyName
-              } used ${enemyAttackName} for ${enemyAttackDamage} damage!`
-                        };
-                    } else {
-                        return {
-                            playerHP: prevState.playerHP - enemyAttackDamage,
-                            textMessageOne: `${
-                this.state.enemyName
-              } used ${enemyAttackName} for ${enemyAttackDamage} damage!`
-                        };
-                    }
-                },
-                () => {
-                    setTimeout(() => {
-                        if (this.state.playerHP === 0) {
-                            this.setState({
-                                    textMessageOne: `${this.state.playerName} fainted.`,
-                                    textMessageTwo: `${this.state.enemyName} wins!`,
-                                    playerFaint: true
-                                },
-                                () => {
-                                    setTimeout(() => {
-                                        this.setState({
-                                            gameOver: true
-                                        });
-                                    }, 3000);
-                                }
-                            );
-                        } else {
-                            this.setState({
-                                textMessageOne: ""
-                            });
-                        }
-                    }, 2000);
-                }
-            );
-        }
-    };
-
-    handleAttackClick = (name, damage) => {
-        // implicit return single value
-        // this.setState(prevState => ({
-        //   enemyHP: prevState.enemyHP - damage
-        // }));
-
-        damage = damage + Math.floor(Math.random() * 11);
-
-        // use attack to calculate enemy HP and adjust progress bar
-        this.setState(
-            prevState => {
-                if (prevState.enemyHP - damage <= 0) {
-                    return {
-                        enemyHP: 0,
-                        textMessageOne: `${
-              this.state.playerName
-            } used ${name} for ${damage} damage!`
-                    };
-                } else {
-                    return {
-                        enemyHP: prevState.enemyHP - damage,
-                        textMessageOne: `${
-              this.state.playerName
-            } used ${name} for ${damage} damage!`
-                    };
-                }
-            },
-            () => {
-                // wait X seconds before enemy attacks
-                setTimeout(() => {
-                    // calc next enemy attack name and damage
-                    let enemyAttack = Math.floor(Math.random() * 4);
-                    let enemyAttackDamage = this.state.enemyAttackDamage[enemyAttack];
-                    let enemyAttackName = this.state.enemyAttackNames[enemyAttack];
-
-                    // once the state is changed, start enemy turn
-                    this.enemyTurn(enemyAttackName, enemyAttackDamage);
-                }, 3000);
+    return (
+        <div id="app-container">
+            {
+                renderCurrentView(currentView, setCurrentView)
             }
-        );
-    };
-
-    handlePlayAgain = () => {
-        console.log("play again!!!");
-        this.setState({
-            playerHP: this.state.playerMaxHP,
-            enemyHP: this.state.enemyMaxHP,
-            gameOver: false,
-            textMessageOne: "",
-            textMessageTwo: "",
-            enemyFaint: false,
-            playerFaint: false
-        });
-    };
-
-    render() {
-        return ( 
-            <div className = "container h-100" >
-                <div className = "row row h-100 justify-content-center align-items-center" >
-                    <div className = "col-sm-12" > { /* BATTLE SCREEN CONTAINER */ } 
-                        <div id = "battle-container" className = "px-2 mx-auto" >
-                            <EnemyBox enemyName = { this.state.enemyName }
-                                enemyLevel = { this.state.enemyLevel }
-                                enemyHP = { this.state.enemyHP }
-                                enemyMaxHP = { this.state.enemyMaxHP }
-                                enemyFaint = { this.state.enemyFaint }
-                                enemyRank = { this.state.enemyRank }
-                            />
-                            <PlayerBox playerName = { this.state.playerName }
-                                playerLevel = { this.state.playerLevel }
-                                playerHP = { this.state.playerHP }
-                                playerMaxHP = { this.state.playerMaxHP }
-                                playerFaint = { this.state.playerFaint }
-                                playerRank = { this.state.playerRank }
-                            />
-
-                            { /* TEXT BOX SECTION */ } 
-                            <div id = "text-box" >
-                                <div id = "text-box-content" > 
-                                    {
-                                        this.state.textMessageOne !== "" &&
-                                        this.state.gameOver === false && ( <
-                                            TextBox messageOne = { this.state.textMessageOne }
-                                            messageTwo = { this.state.textMessageTwo }
-                                            />
-                                        )
-                                    }
-
-                                    {
-                                        this.state.textMessageOne === "" &&
-                                            this.state.gameOver === false &&
-                                            Object.keys(this.state.playerAttacks).map((key, index) => {
-                                                return ( <
-                                                    Attacks key = { key }
-                                                    index = { index }
-                                                    details = { this.state.playerAttacks[key] }
-                                                    handleAttackClick = { this.handleAttackClick }
-                                                    />
-                                                );
-                                            })
-                                    }
-                                    {
-                                        this.state.gameOver === true && ( <
-                                            PlayAgain handlePlayAgain = { this.handlePlayAgain }
-                                            />
-                                        )
-                                    }
-                                </div> 
-                            </div> 
-                            { /* END TEXT BOX SECTION */ } 
-                        </div> 
-                        { /* END BATTLE SCREEN CONTAINER */ }
-                    </div>
-                </div> 
-            </div>
-        );
-    }
+        </div>
+    );
 }
+
+function renderCurrentView(currView, viewUpdater) {
+    let viewJsx = null;
+    
+    switch (currView) {
+        case 0: //Home page
+            viewJsx = (
+                <Home viewupdate={viewUpdater} />
+            );
+            break;
+        case 1: //Battle Setup
+            viewJsx = (
+                <div>
+                    Battle Setup!
+                </div>
+            );
+            break;
+        case 2: //Battle
+            break;
+        case 3: //Leaderboards
+            viewJsx = (
+                <Leaderboard viewupdate={viewUpdater} />
+            );
+            break;
+        case 4: //View Dinosols
+            viewJsx = (
+                <DinoPen viewupdate={viewUpdater} />
+            );    
+            break;
+        case 5: //Buy Dinosols
+            break;
+        default:
+            break;
+    } 
+
+    return viewJsx;
+}
+
 
 export default App;

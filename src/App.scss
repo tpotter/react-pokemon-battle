@@ -1,3 +1,7 @@
+@import "./Components/Home/home.scss";
+@import "./Components/DinoPen/DinoPen.scss";
+@import "./Components/DinoPen/MiniDinoIcon.scss";
+
 body {
     font-family: "Share Tech Mono", monospace;
 }
@@ -7,7 +11,9 @@ html,
 #root {
     height: 100% !important;
     /* background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%); */
-    background-color: #101921;
+    //background-color: #101921;
+    //background-color: #22002e;
+    background: linear-gradient(135deg, #060009, #38004a);
 }
 
 h2 {
@@ -48,6 +54,9 @@ h5 {
     top: 72px;
     left: -10px;
 } */
+#hero-container {
+    /*overflow: hidden;*/
+}
 
 #hero-container .avatar-box {
     left: -7px;
