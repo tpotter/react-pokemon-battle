@@ -1,6 +1,8 @@
 @import "./Components/Home/home.scss";
 @import "./Components/DinoPen/DinoPen.scss";
 @import "./Components/DinoPen/MiniDinoIcon.scss";
+@import "./Components/Leaderboard/Leaderboard.scss";
+@import "./Components/Utility/DinosolTable.scss";
 
 body {
     font-family: "Share Tech Mono", monospace;
@@ -54,6 +56,43 @@ h5 {
     top: 72px;
     left: -10px;
 } */
+.section-container {
+    height: 100vh;
+    position: relative;
+    width: 100%;
+
+    .back-button {
+
+        background-color: transparent;
+        border-color: #fafafa;
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 1px;
+        color: #fafafa;
+        cursor: pointer;
+        left: 40px;
+        padding-bottom: 6px;
+        padding-left: 36px;
+        padding-right: 36px;
+        padding-top: 6px;
+        position: absolute;
+        top: 20px;
+        transition: background-color 0.2s ease-in 0s, color 0.2s ease-in 0s;
+    }
+
+    .back-button:hover {
+        background-color: #fafafa;
+        color: #060009;
+
+    }
+
+    h1 {
+        font-size: 3.2em;
+        text-align: center;
+    }
+}
+
+
 #hero-container {
     /*overflow: hidden;*/
 }

@@ -5,8 +5,10 @@ function DinoPen(props) {
     
     const [selectedDino, setSelectedDino] = useState(null);
     
+
+
     return (
-        <div id="dino-pen-container">
+        <div id="dino-pen-container" className='section-container'>
             <input className="back-button" type="button" value="Back" onClick={props.viewupdate.bind(null,0)} />
             <h1>The Dino Pen</h1>
             <div id="dino-pen-content" className={determineIfExpandedView(selectedDino)} >
@@ -16,7 +18,7 @@ function DinoPen(props) {
                     }
                 </div>
                 <div id="dino-detail-container">
-
+                    { renderSelectedDinosol(selectedDino, setSelectedDino) }
                 </div>
             </div>
         </div>
@@ -28,15 +30,35 @@ function renderDinoList(selectFunction) {
     let myDinos = returnSampleDinoList();
     let dinoPenCollection = [];
     myDinos.forEach(dino => {
-        dinoPenCollection.push(<MiniDinoIcon key={"dino-"+dino.dinoId} dinoimg={dino.image} dinoname={dino.name} onClick={selectFunction.bind(null, dino)} />);
+        dinoPenCollection.push(
+        
+            <div className="mini-dino-icon" onClick={selectFunction.bind(null, dino)}>
+                <img src={dino.image} alt="Dinosol Profile" />
+                <p>{dino.name}</p>
+            </div>
+        );
     });
-
+    
     return dinoPenCollection;
 }
 
 function determineIfExpandedView(currentlySelected) {
     if(currentlySelected !== null) {
         return "dino-detail-expanded";
+    }
+}
+
+function renderSelectedDinosol(dino, updateFunction) {
+
+    if(dino !== null) {
+        return (
+            <>
+            <p onClick={updateFunction.bind(null, null)}>Close</p>
+            <h3>{dino.name}</h3>
+            <p>{dino.level}</p>
+            <p>{dino.dinoId}</p>
+            </>
+        );
     }
 }
 

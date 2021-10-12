@@ -1,19 +1,8 @@
 #dino-pen-container {
     color: #fafafa;
-    height: 100vh;
-    position: relative;
-    width: 100%;
-
-    .back-button {
-        position: absolute;
-    }
-
-    h1 {
-        text-align: center;
-    }
 
     #dino-pen-content {
-        
+        display: flex;
         margin-left: auto;
         margin-right: auto;
         margin-top: 48px;
@@ -29,18 +18,24 @@
         #dino-detail-container {
             background-color: #00ff00;
             display: block;
-            height: 100vh;
+            //height: 100vh;
             width: 0%;
             transition: width 0.2s ease-in 0s;
         }
 
-        .dino-detail-expanded #dino-pen-flex {
-            width: 50%;
+        
+    }
+
+    #dino-pen-content.dino-detail-expanded {
+        #dino-pen-flex {
+            width: 49%;
         }
 
-        .dino-detail-expanded #dino-detail-container {
-            width: 50%;
+        #dino-detail-container {
+            width: 49%;
         }
     }
+    
+
     
 }
