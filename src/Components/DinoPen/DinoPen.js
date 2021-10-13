@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import MiniDinoIcon from './MiniDinoIcon';
+import DinoFeature from './DinoFeature';
+
 
 function DinoPen(props) {
     
@@ -52,12 +53,7 @@ function renderSelectedDinosol(dino, updateFunction) {
 
     if(dino !== null) {
         return (
-            <>
-            <p onClick={updateFunction.bind(null, null)}>Close</p>
-            <h3>{dino.name}</h3>
-            <p>{dino.level}</p>
-            <p>{dino.dinoId}</p>
-            </>
+            <DinoFeature dino={dino} close={updateFunction} />
         );
     }
 }
