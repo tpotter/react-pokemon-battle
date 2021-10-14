@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import EnemyAvatar from "./EnemyAvatar";
+import EnemyAvatar from "../Dinosol/EnemyAvatar";
 
 export class EnemyBox extends Component {
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PlayerAvatar from "./PlayerAvatar";
+import PlayerAvatar from "../Dinosol/PlayerAvatar";
 
 export class PlayerBox extends Component {
   render() {

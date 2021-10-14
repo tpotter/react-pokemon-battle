@@ -1,0 +1,37 @@
+//22002e
+
+#home-container {
+    color: #fafafa;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+
+    #home-text-container {
+        position: absolute;
+        right: 15%;
+        top: 10%;
+
+        #home-title-container {
+            h1 {
+                font-size: 5em;
+            }
+        }
+    
+        #home-menu-options {
+            list-style: none;
+            padding-left: 0;
+            .main-menu-option {
+                cursor: pointer;
+                display: inline-block;
+                font-size: 2.4em;
+                transition: font-size 0.2s ease-in 0s;
+            }
+    
+            .main-menu-option:hover {
+                font-size: 2.5em;
+            }
+    
+        }
+    }
+    
+}
