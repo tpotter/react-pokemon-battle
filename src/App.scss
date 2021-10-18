@@ -4,9 +4,22 @@
 @import "./Components/DinoPen/ExpBar.scss";
 @import "./Components/Leaderboard/Leaderboard.scss";
 @import "./Components/Utility/DinosolTable.scss";
+@import "./Components/DinoSelection/dinoSelection.scss";
+@import "./Components/Dinosol/dinoRadio.scss";
+
+@font-face {
+    font-family: "Gilroy-Light";
+    src: url("./Resources/font/Gilroy-Light.otf");
+}
+
+@font-face {
+    font-family: "Gilroy-Bold";
+    src: url("./Resources/font/Gilroy-ExtraBold.otf");
+}
 
 body {
-    font-family: "Share Tech Mono", monospace;
+    //font-family: "Share Tech Mono", monospace;
+    font-family: "Gilroy-Light";
 }
 
 body,
@@ -88,6 +101,7 @@ h5 {
     }
 
     h1 {
+        font-family: "Gilroy-Bold";
         font-size: 3.2em;
         text-align: center;
     }

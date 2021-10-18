@@ -1,26 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./animate.css";
 import "./bootstrap.css";
 import "./App.scss";
 import Home from "./Components/Home/Home";
 import DinoPen from "./Components/DinoPen/DinoPen";
 import Leaderboard from "./Components/Leaderboard/Leaderboard";
+import DinoSelection from "./Components/DinoSelection/DinoSelection";
+import PlayerConfig from "./Resources/player-config.json";
 
 
 function App() {
     
     const [currentView, setCurrentView] = useState(0);
+    const [playerDinosol, setPlayerDinosol] = useState(null);
+    const [playerDinosolMap, setPlayerDinosolMap] = useState([]);
+    const [opponentDinosol, setOpponentDinosol] = useState(null);
+
+    useEffect(() => {
+        let dinoMap = PlayerConfig.playerDinosols.reduce(function(map, dino) {
+            map[dino.dinosolId] = dino;
+            return map;
+        }, {});
+
+        setPlayerDinosolMap(dinoMap);
+    }, []);
 
     return (
         <div id="app-container">
             {
-                renderCurrentView(currentView, setCurrentView)
+                renderCurrentView(currentView, setCurrentView, playerDinosol, playerDinosolMap, setPlayerDinosol)
             }
         </div>
     );
 }
 
-function renderCurrentView(currView, viewUpdater) {
+function renderCurrentView(currView, 
+    viewUpdater, 
+    playerDinosol, 
+    playerDinosolMap,
+    playerDinosolUpdater ) {
     let viewJsx = null;
     
     switch (currView) {
@@ -31,9 +49,10 @@ function renderCurrentView(currView, viewUpdater) {
             break;
         case 1: //Battle Setup
             viewJsx = (
-                <div>
-                    Battle Setup!
-                </div>
+                <DinoSelection dinomap={playerDinosolMap} 
+                    currentdino={playerDinosol}
+                    currentupdater={playerDinosolUpdater}
+                    viewupdate={viewUpdater} />
             );
             break;
         case 2: //Battle
@@ -48,7 +67,12 @@ function renderCurrentView(currView, viewUpdater) {
                 <DinoPen viewupdate={viewUpdater} />
             );    
             break;
-        case 5: //Buy Dinosols
+        case 5: //Select Opponent
+            viewJsx = (
+                <h1>Genrating Opponent</h1>
+            );
+            break;
+        case 6: //Buy Dinosols
             break;
         default:
             break;
