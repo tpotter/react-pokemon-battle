@@ -2,13 +2,22 @@ import React from 'react';
 
 function ExpBar(props) {
 
+    function calculateCompletion() {
+        const completion = {
+            width: ((props.currexp / props.nextexp)*100)+'%'
+        }
+
+        return completion;
+        
+    }
+
     return(
         <div className="exp-bar-container">
             <p>
                 {props.level}
             </p>
             <div className="exp-bar-bar">
-                <div className="exp-bar-completion-bar"></div>
+                <div className="exp-bar-completion-bar" style={calculateCompletion()} ></div>
             </div>
             <p>
                 {(props.level + 1)}

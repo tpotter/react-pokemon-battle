@@ -3,7 +3,6 @@ import React from 'react';
 function DinoRadio(props) {
 
     function handleRadioSelect(e) {
-        console.log(e.target.value);
         props.updatefunction(e.target.value);
     }
     
