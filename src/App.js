@@ -59,6 +59,9 @@ function renderCurrentView(currView,
             );
             break;
         case 2: //Battle
+            viewJsx = (
+                <h1>BATTLE TIME</h1>
+            );
             break;
         case 3: //Leaderboards
             viewJsx = (
@@ -72,7 +75,11 @@ function renderCurrentView(currView,
             break;
         case 5: //Select Opponent
             viewJsx = (
-                <OpponentGeneration playerdino={playerDinosol} opponentdino={opponentDinosol} opponentupdater={opponentDinosolUpdater} />
+                <OpponentGeneration playerdino={playerDinosol} 
+                    opponentdino={opponentDinosol} 
+                    opponentupdater={opponentDinosolUpdater} 
+                    viewupdate={viewUpdater}    
+                />
             );
             break;
         case 6: //Buy Dinosols
