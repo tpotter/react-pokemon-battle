@@ -1,40 +1,43 @@
 import React from 'react';
-import "./animate.css";
-import "./bootstrap.css";
-import "./App.css";
-import TextBox from "./Components/TextBox";
-import Attacks from "./Components/BattleInterface/Attacks";
-import EnemyBox from "./Components/BattleInterface/EnemyBox";
-import PlayerBox from "./Components/BattleInterface/PlayerBox";
-import PlayAgain from "./Components/BattleInterface/PlayAgain";
+import "../../animate.css";
+import "../../bootstrap.css";
+import "../../App.scss";
+import TextBox from "./TextBox";
+import Attacks from "./Attacks";
+import EnemyBox from "./EnemyBox";
+import PlayerBox from "./PlayerBox";
+import PlayAgain from "./PlayAgain";
 
 class BattleInterface extends React.Component {
-    state = {
-        stage: 0,
-        playerName: "Dino Dubya",
-        playerLevel: 45,
-        playerHP: 200,
-        playerMaxHP: 200,
-        playerRank: 40,
-        playerAttacks: {
-            attackOne: { name: "Bite", damage: 10 },
-            attackTwo: { name: "Scratch", damage: 30 },
-            attackThree: { name: "Slash", damage: 35 },
-            attackFour: { name: "Pack Hunt", damage: 45 }
-        },
-        playerFaint: "",
-        enemyName: "Poshasaurus",
-        enemyLevel: 43,
-        enemyHP: 200,
-        enemyMaxHP: 200,
-        enemyRank: 39,
-        enemyAttackNames: ["Hex", "Shadow Ball", "Dream Eater", "Nightmare"],
-        enemyAttackDamage: [10, 30, 35, 45],
-        enemyFaint: "",
-        textMessageOne: " ",
-        textMessageTwo: "",
-        gameOver: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            stage: 0,
+            playerName: "Dino Dubya",
+            playerLevel: 45,
+            playerHP: 200,
+            playerMaxHP: 200,
+            playerRank: 40,
+            playerAttacks: {
+                attackOne: { name: "Bite", damage: 10 },
+                attackTwo: { name: "Scratch", damage: 30 },
+                attackThree: { name: "Slash", damage: 35 },
+                attackFour: { name: "Pack Hunt", damage: 45 }
+            },
+            playerFaint: "",
+            enemyName: "Poshasaurus",
+            enemyLevel: 43,
+            enemyHP: 200,
+            enemyMaxHP: 200,
+            enemyRank: 39,
+            enemyAttackNames: ["Hex", "Shadow Ball", "Dream Eater", "Nightmare"],
+            enemyAttackDamage: [10, 30, 35, 45],
+            enemyFaint: "",
+            textMessageOne: " ",
+            textMessageTwo: "",
+            gameOver: false
+        };  
+    }
 
     componentDidMount() {
         this.startingSequence();
@@ -212,14 +215,14 @@ class BattleInterface extends React.Component {
                                 playerRank = { this.state.playerRank }
                             />
 
-                            { /* TEXT BOX SECTION */ } 
+                            { /* TEXT BOX SECTION */}
                             <div id = "text-box" >
                                 <div id = "text-box-content" > 
                                     {
                                         this.state.textMessageOne !== "" &&
-                                        this.state.gameOver === false && ( <
-                                            TextBox messageOne = { this.state.textMessageOne }
-                                            messageTwo = { this.state.textMessageTwo }
+                                        this.state.gameOver === false && ( 
+                                            <TextBox messageOne = { this.state.textMessageOne }
+                                                messageTwo = { this.state.textMessageTwo }
                                             />
                                         )
                                     }
@@ -228,19 +231,19 @@ class BattleInterface extends React.Component {
                                         this.state.textMessageOne === "" &&
                                             this.state.gameOver === false &&
                                             Object.keys(this.state.playerAttacks).map((key, index) => {
-                                                return ( <
-                                                    Attacks key = { key }
-                                                    index = { index }
-                                                    details = { this.state.playerAttacks[key] }
-                                                    handleAttackClick = { this.handleAttackClick }
+                                                return ( 
+                                                    <Attacks 
+                                                        key = { key }
+                                                        index = { index }
+                                                        details = { this.state.playerAttacks[key] }
+                                                        handleAttackClick = { this.handleAttackClick }
                                                     />
                                                 );
                                             })
                                     }
                                     {
-                                        this.state.gameOver === true && ( <
-                                            PlayAgain handlePlayAgain = { this.handlePlayAgain }
-                                            />
+                                        this.state.gameOver === true && ( 
+                                            <PlayAgain handlePlayAgain = { this.handlePlayAgain } />
                                         )
                                     }
                                 </div> 

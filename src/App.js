@@ -8,6 +8,7 @@ import Leaderboard from "./Components/Leaderboard/Leaderboard";
 import DinoSelection from "./Components/DinoSelection/DinoSelection";
 import PlayerConfig from "./Resources/player-config.json";
 import OpponentGeneration from "./Components/OpponentGeneration/OpponentGeneration";
+import BattleInterface from "./Components/BattleInterface/BattleInterface";
 
 
 function App() {
@@ -60,7 +61,7 @@ function renderCurrentView(currView,
             break;
         case 2: //Battle
             viewJsx = (
-                <h1>BATTLE TIME</h1>
+                <BattleInterface />
             );
             break;
         case 3: //Leaderboards
