@@ -61,7 +61,7 @@ function renderCurrentView(currView,
             break;
         case 2: //Battle
             viewJsx = (
-                <BattleInterface />
+                <BattleInterface opponent={opponentDinosol} player={playerDinosol} viewupdate={viewUpdater} />
             );
             break;
         case 3: //Leaderboards

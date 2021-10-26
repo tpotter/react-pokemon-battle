@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../animate.css";
 import "../../bootstrap.css";
 import "../../App.scss";
@@ -8,254 +8,155 @@ import EnemyBox from "./EnemyBox";
 import PlayerBox from "./PlayerBox";
 import PlayAgain from "./PlayAgain";
 
-class BattleInterface extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            stage: 0,
-            playerName: "Dino Dubya",
-            playerLevel: 45,
-            playerHP: 200,
-            playerMaxHP: 200,
-            playerRank: 40,
-            playerAttacks: {
-                attackOne: { name: "Bite", damage: 10 },
-                attackTwo: { name: "Scratch", damage: 30 },
-                attackThree: { name: "Slash", damage: 35 },
-                attackFour: { name: "Pack Hunt", damage: 45 }
-            },
-            playerFaint: "",
-            enemyName: "Poshasaurus",
-            enemyLevel: 43,
-            enemyHP: 200,
-            enemyMaxHP: 200,
-            enemyRank: 39,
-            enemyAttackNames: ["Hex", "Shadow Ball", "Dream Eater", "Nightmare"],
-            enemyAttackDamage: [10, 30, 35, 45],
-            enemyFaint: "",
-            textMessageOne: " ",
-            textMessageTwo: "",
-            gameOver: false
-        };  
-    }
+function BattleInterface(props) {
+    const [gameOver, setGameOver] = useState(false);
+    const [playerHP, setPlayerHP] = useState(0);
+    const [playerFaint, setPlayerFaint] = useState(null);
+    const [enemyHP, setEnemyHP] = useState(0);
+    const [enemyFaint, setEnemyFaint] = useState(null);
+    const [textMessageOne, setTextMessageOne] = useState("");
+    const [textMessageTwo, setTextMessageTwo] = useState("");
 
-    componentDidMount() {
-        this.startingSequence();
-    }
+    useEffect(() => {
+        setPlayerHP(props.player.dinosolHP);
+        setEnemyHP(props.opponent.dinosolHP);
+        startingSequence();
+    },[]);
 
-    componentDidUpdate() {}
-
-    startingSequence = () => {
+    function startingSequence() {
         setTimeout(() => {
-            this.setState(
-                () => {
-                    return {
-                        textMessageOne: `A wild ${this.state.enemyName} appeared!`,
-                        enemyFaint: false
-                    };
-                },
-                () => {
-                    setTimeout(() => {
-                        this.setState({
-                                textMessageOne: `Go ${this.state.playerName}!`,
-                                playerFaint: false
-                            },
-                            () => {
-                                setTimeout(() => {
-                                    this.setState({
-                                        textMessageOne: ""
-                                    });
-                                }, 3000);
-                            }
-                        );
-                    }, 3000);
-                }
-            );
+            setTextMessageOne(`A wild ${props.opponent.dinosolName} appeared!`);
+            setEnemyFaint(false);
+            setTimeout(() => {
+
+                setTextMessageOne(`Go ${props.player.dinosolName}!`);
+                setPlayerFaint(false);
+                setTimeout(() => {
+                    setTextMessageOne("");
+                }, 3000);       
+            }, 3000);
         }, 1000);
     };
 
-    enemyTurn = (enemyAttackName, enemyAttackDamage) => {
+    function enemyTurn(enemyAttackName, enemyAttackDamage) {
         enemyAttackDamage = enemyAttackDamage + Math.floor(Math.random() * 11);
         // first, check if enemy fainted. End Game if they did.
-        if (this.state.enemyHP === 0) {
-            this.setState({
-                    textMessageOne: `${this.state.enemyName} fainted.`,
-                    textMessageTwo: `${this.state.playerName} wins!`,
-                    enemyFaint: true
-                },
-                () => {
-                    setTimeout(() => {
-                        this.setState({
-                            gameOver: true
-                        });
-                    }, 3000);
-                }
-            );
+        if (enemyHP === 0) {   
+            setTextMessageOne(`${props.opponent.dinosolName} fainted.`);
+            setTextMessageTwo(`${props.player.dinosolName} wins!`);
+            setEnemyFaint(true);
+
+            setTimeout(() => {
+                setGameOver(true);
+            }, 3000);
         } else {
             // if enemy is still alive, proceed with enemy turn
+            setTextMessageOne(`${props.opponent.dinosolName} used ${enemyAttackName} for ${enemyAttackDamage} damage!`);
+            if(playerHP - enemyAttackDamage <= 0) {
+                setPlayerHP(0);
+            } else {
+                setPlayerHP(playerHP - enemyAttackDamage);
+            }
 
-            this.setState(
-                prevState => {
-                    if (prevState.playerHP - enemyAttackDamage <= 0) {
-                        return {
-                            playerHP: 0,
-                            textMessageOne: `${
-                this.state.enemyName
-              } used ${enemyAttackName} for ${enemyAttackDamage} damage!`
-                        };
-                    } else {
-                        return {
-                            playerHP: prevState.playerHP - enemyAttackDamage,
-                            textMessageOne: `${
-                this.state.enemyName
-              } used ${enemyAttackName} for ${enemyAttackDamage} damage!`
-                        };
-                    }
-                },
-                () => {
+            setTimeout(() => {
+                if (props.player.playerHP === 0) {
+                    setTextMessageOne(`${props.player.dinosolName} fainted.`);
+                    setTextMessageTwo(`${props.opponent.dinosolName} wins!`);
+                    setPlayerFaint(true);
+
                     setTimeout(() => {
-                        if (this.state.playerHP === 0) {
-                            this.setState({
-                                    textMessageOne: `${this.state.playerName} fainted.`,
-                                    textMessageTwo: `${this.state.enemyName} wins!`,
-                                    playerFaint: true
-                                },
-                                () => {
-                                    setTimeout(() => {
-                                        this.setState({
-                                            gameOver: true
-                                        });
-                                    }, 3000);
-                                }
-                            );
-                        } else {
-                            this.setState({
-                                textMessageOne: ""
-                            });
-                        }
-                    }, 2000);
+                        setGameOver(true);
+                    }, 3000);
+                } else {
+                    setTextMessageOne("");
                 }
-            );
+            }, 2000);
         }
     };
 
-    handleAttackClick = (name, damage) => {
-        // implicit return single value
-        // this.setState(prevState => ({
-        //   enemyHP: prevState.enemyHP - damage
-        // }));
-
+    function handleAttackClick(name, damage) {
         damage = damage + Math.floor(Math.random() * 11);
+        setTextMessageOne(`${props.player.dinosolName} used ${name} for ${damage} damage!`);
+        let postAttackHP = enemyHP - damage;
+        if(postAttackHP <= 0) {
+            setEnemyHP(0);
+        } else {
+            setEnemyHP(postAttackHP);
+        }
 
-        // use attack to calculate enemy HP and adjust progress bar
-        this.setState(
-            prevState => {
-                if (prevState.enemyHP - damage <= 0) {
-                    return {
-                        enemyHP: 0,
-                        textMessageOne: `${
-              this.state.playerName
-            } used ${name} for ${damage} damage!`
-                    };
-                } else {
-                    return {
-                        enemyHP: prevState.enemyHP - damage,
-                        textMessageOne: `${
-              this.state.playerName
-            } used ${name} for ${damage} damage!`
-                    };
-                }
-            },
-            () => {
-                // wait X seconds before enemy attacks
-                setTimeout(() => {
-                    // calc next enemy attack name and damage
-                    let enemyAttack = Math.floor(Math.random() * 4);
-                    let enemyAttackDamage = this.state.enemyAttackDamage[enemyAttack];
-                    let enemyAttackName = this.state.enemyAttackNames[enemyAttack];
+        // wait X seconds before enemy attacks
+        setTimeout(() => {
+            // calc next enemy attack name and damage
+            let enemyAttack = Math.floor(Math.random() * 4);
+            let enemyAttackDamage = props.opponent.enemyAttackDamage[enemyAttack];
+            let enemyAttackName = props.opponent.enemyAttackNames[enemyAttack];
 
-                    // once the state is changed, start enemy turn
-                    this.enemyTurn(enemyAttackName, enemyAttackDamage);
-                }, 3000);
-            }
-        );
+            // once the state is changed, start enemy turn
+            enemyTurn(enemyAttackName, enemyAttackDamage);
+        }, 3000);
     };
+   
+    return ( 
+        <div className = "container h-100" >
+            <div className = "row row h-100 justify-content-center align-items-center" >
+                <div className = "col-sm-12" > { /* BATTLE SCREEN CONTAINER */ } 
+                    <div id = "battle-container" className = "px-2 mx-auto" >
+                        <EnemyBox enemyName = { props.opponent.dinosolName }
+                            enemyLevel = { props.opponent.dinosolLevel }
+                            enemyHP = { props.opponent.enemyHP }
+                            enemyMaxHP = { props.opponent.enemyMaxHP }
+                            enemyFaint = { enemyFaint }
+                            enemyRank = { props.opponent.enemyRank }
+                        />
+                        <PlayerBox playerName = { props.player.dinosolName }
+                            playerLevel = { props.player.dinosolLevel }
+                            playerHP = { props.player.dinosolHP }
+                            playerMaxHP = { props.player.dinosolMaxHP }
+                            playerFaint = { playerFaint }
+                            playerRank = { props.player.playerRank }
+                        />
 
-    handlePlayAgain = () => {
-        console.log("play again!!!");
-        this.setState({
-            playerHP: this.state.playerMaxHP,
-            enemyHP: this.state.enemyMaxHP,
-            gameOver: false,
-            textMessageOne: "",
-            textMessageTwo: "",
-            enemyFaint: false,
-            playerFaint: false
-        });
-    };
+                        { /* TEXT BOX SECTION */}
+                        <div id = "text-box" >
+                            <div id = "text-box-content" > 
+                                {
+                                    textMessageOne !== "" &&
+                                    gameOver === false && ( 
+                                        <TextBox messageOne = { textMessageOne }
+                                            messageTwo = { textMessageTwo }
+                                        />
+                                    )
+                                }
 
-    render() {
-        return ( 
-            <div className = "container h-100" >
-                <div className = "row row h-100 justify-content-center align-items-center" >
-                    <div className = "col-sm-12" > { /* BATTLE SCREEN CONTAINER */ } 
-                        <div id = "battle-container" className = "px-2 mx-auto" >
-                            <EnemyBox enemyName = { this.state.enemyName }
-                                enemyLevel = { this.state.enemyLevel }
-                                enemyHP = { this.state.enemyHP }
-                                enemyMaxHP = { this.state.enemyMaxHP }
-                                enemyFaint = { this.state.enemyFaint }
-                                enemyRank = { this.state.enemyRank }
-                            />
-                            <PlayerBox playerName = { this.state.playerName }
-                                playerLevel = { this.state.playerLevel }
-                                playerHP = { this.state.playerHP }
-                                playerMaxHP = { this.state.playerMaxHP }
-                                playerFaint = { this.state.playerFaint }
-                                playerRank = { this.state.playerRank }
-                            />
-
-                            { /* TEXT BOX SECTION */}
-                            <div id = "text-box" >
-                                <div id = "text-box-content" > 
-                                    {
-                                        this.state.textMessageOne !== "" &&
-                                        this.state.gameOver === false && ( 
-                                            <TextBox messageOne = { this.state.textMessageOne }
-                                                messageTwo = { this.state.textMessageTwo }
+                                {
+                                    textMessageOne === "" &&
+                                    gameOver === false &&
+                                    Object.keys(props.player.dinosolAttacks).map((key, index) => {
+                                        return ( 
+                                            <Attacks 
+                                                key = { key }
+                                                index = { index }
+                                                details = { props.player.dinosolAttacks[key] }
+                                                handleAttackClick = { handleAttackClick }
                                             />
-                                        )
-                                    }
-
-                                    {
-                                        this.state.textMessageOne === "" &&
-                                            this.state.gameOver === false &&
-                                            Object.keys(this.state.playerAttacks).map((key, index) => {
-                                                return ( 
-                                                    <Attacks 
-                                                        key = { key }
-                                                        index = { index }
-                                                        details = { this.state.playerAttacks[key] }
-                                                        handleAttackClick = { this.handleAttackClick }
-                                                    />
-                                                );
-                                            })
-                                    }
-                                    {
-                                        this.state.gameOver === true && ( 
-                                            <PlayAgain handlePlayAgain = { this.handlePlayAgain } />
-                                        )
-                                    }
-                                </div> 
+                                        );
+                                    })
+                                }
+                                {
+                                    gameOver === true && ( 
+                                        <PlayAgain handlePlayAgain = { props.viewupdate.bind(null,1) } />
+                                    )
+                                }
                             </div> 
-                            { /* END TEXT BOX SECTION */ } 
                         </div> 
-                        { /* END BATTLE SCREEN CONTAINER */ }
-                    </div>
-                </div> 
-            </div>
-        );
-    }
+                        { /* END TEXT BOX SECTION */ } 
+                    </div> 
+                    { /* END BATTLE SCREEN CONTAINER */ }
+                </div>
+            </div> 
+        </div>
+    );
+    
 }
 
 export default BattleInterface;
