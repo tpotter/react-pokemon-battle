@@ -79,6 +79,7 @@ function BattleInterface(props) {
         setTextMessageOne(`${props.player.dinosolName} used ${name} for ${damage} damage!`);
         let postAttackHP = enemyHP - damage;
         if(postAttackHP <= 0) {
+            console.log("Enemy: Set to 0");
             setEnemyHP(0);
         } else {
             setEnemyHP(postAttackHP);
@@ -88,8 +89,8 @@ function BattleInterface(props) {
         setTimeout(() => {
             // calc next enemy attack name and damage
             let enemyAttack = Math.floor(Math.random() * 4);
-            let enemyAttackDamage = props.opponent.enemyAttackDamage[enemyAttack];
-            let enemyAttackName = props.opponent.enemyAttackNames[enemyAttack];
+            let enemyAttackDamage = props.opponent.dinosolAttacks[enemyAttack].attackDamage;
+            let enemyAttackName = props.opponent.dinosolAttacks[enemyAttack].attackName;
 
             // once the state is changed, start enemy turn
             enemyTurn(enemyAttackName, enemyAttackDamage);
@@ -103,17 +104,19 @@ function BattleInterface(props) {
                     <div id = "battle-container" className = "px-2 mx-auto" >
                         <EnemyBox enemyName = { props.opponent.dinosolName }
                             enemyLevel = { props.opponent.dinosolLevel }
-                            enemyHP = { props.opponent.enemyHP }
-                            enemyMaxHP = { props.opponent.enemyMaxHP }
+                            enemyHP = { enemyHP }
+                            enemyMaxHP = { props.opponent.dinosolHP }
                             enemyFaint = { enemyFaint }
                             enemyRank = { props.opponent.enemyRank }
+                            dinoimage = { props.opponent.dinosolImage }
                         />
                         <PlayerBox playerName = { props.player.dinosolName }
                             playerLevel = { props.player.dinosolLevel }
-                            playerHP = { props.player.dinosolHP }
-                            playerMaxHP = { props.player.dinosolMaxHP }
+                            playerHP = { playerHP }
+                            playerMaxHP = { props.player.dinosolHP }
                             playerFaint = { playerFaint }
                             playerRank = { props.player.playerRank }
+                            dinoimage = { props.player.dinosolImage }
                         />
 
                         { /* TEXT BOX SECTION */}
@@ -127,7 +130,6 @@ function BattleInterface(props) {
                                         />
                                     )
                                 }
-
                                 {
                                     textMessageOne === "" &&
                                     gameOver === false &&
@@ -144,7 +146,7 @@ function BattleInterface(props) {
                                 }
                                 {
                                     gameOver === true && ( 
-                                        <PlayAgain handlePlayAgain = { props.viewupdate.bind(null,1) } />
+                                        <PlayAgain handlePlayAgain = { props.viewupdate.bind(null,0) } />
                                     )
                                 }
                             </div> 

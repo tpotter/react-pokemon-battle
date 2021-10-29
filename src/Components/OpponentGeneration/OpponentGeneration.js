@@ -12,8 +12,10 @@ function OpponentGeneration(props) {
                 "dinosolId": "9006",
                 "dinosolName": "Opponentsaurus Rex",
                 "dinosolImage": "https://dinosols.app/images/Dino_dubya.png",
+                "dinosolHP": 200,
                 "dinosolLevel": 41,
                 "dinosolExperience": 5000,
+                "prevExpThreshold": 3000,
                 "nextLevelExp": 6000, 
                 "dinosolAttacks": [
                     {

@@ -5,17 +5,18 @@ function DinoFeature(props) {
 
     return (
         <div className="dino-feature-container">
-            <p className="close-icon" onClick={props.close.bind(null, null)}>Close</p>
-            <h3>{props.dino.dinosolName}</h3>
             <div className="img-history-flex">
+                <h3>{props.dino.dinosolName}</h3>
                 <img className="dino-feature-image" src={props.dino.dinosolImage} />
-                <div className="history-container">
-                    <h4>Battle History</h4>
-
-                </div>
             </div>
-            <ExpBar level={props.dino.dinosolLevel} currexp={props.dino.dinosolExperience} nextexp={props.dino.nextLevelExp} />
-            
+            <ExpBar level={props.dino.dinosolLevel} prevexp={props.dino.prevExpThreshold} currexp={props.dino.dinosolExperience} nextexp={props.dino.nextLevelExp} />
+            <div>
+                <p><span>Special Attributes</span></p>
+                <p>Cigar: +15% Fire Damage</p>
+                <p>Bling: -5% Opponent Accuracy</p>
+                <p>Tattoo: +10% Base Attack</p>
+
+            </div>
         </div>
     );
 }

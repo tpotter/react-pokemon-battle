@@ -4,7 +4,7 @@ function ExpBar(props) {
 
     function calculateCompletion() {
         const completion = {
-            width: ((props.currexp / props.nextexp)*100)+'%'
+            width: (((props.currexp - props.prevexp) / (props.nextexp - props.prevexp))*100)+'%'
         }
 
         return completion;
