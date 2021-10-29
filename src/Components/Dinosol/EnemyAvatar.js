@@ -13,8 +13,8 @@ export default class EnemyAvatar extends PureComponent {
         if (faint === "") {
             anim = "hide";
         }
-        return ( <
-            div className = { anim } >
+        return ( 
+            <div className = { anim } >
             <img className = "avatar"
                 src = "https://dinosols.app/images/posher.png"
                 alt = "" />

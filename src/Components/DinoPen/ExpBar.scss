@@ -19,14 +19,16 @@
         width: 78%;
     
         .exp-bar-completion-bar {
-            background-color: #38004a;
+            background-color: #0a4335;
             border-bottom-left-radius: 8px;
             border-top-left-radius: 8px;
             height: 24px;
             left: 0;
             position: absolute;
             top: 0;
-            width:: 68%;
+            transition: width 0.2s ease-in 0s;
         }
+
+
     }
 }

@@ -1,0 +1,37 @@
+#opponent-generation-container {
+    color: #fafafa;
+    overflow: hidden;
+
+    h1 {
+        left: 0;
+        margin: auto;
+        margin-top: -38px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 50%;
+    }
+
+    #vs-text {
+        font-size: 6.5em;
+        font-style: italic;
+    }
+
+    .dino-card-div {
+        margin-top: -48px;
+        position: absolute;
+        top: 30%;
+        transition: transform 0.6s ease-in 0s;
+        width: 28%;
+        
+
+    }
+
+    #player-card {
+        left: 78px;
+    }
+
+    #opponent-card {
+        right: 78px;
+    }
+}

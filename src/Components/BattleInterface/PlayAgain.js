@@ -6,9 +6,8 @@ export class PlayAgain extends Component {
     return (
       <div className="battle-text-content">
         <p id="play-again-text" onClick={() => this.props.handlePlayAgain()}>
-          Click Here To Play Again
+          Click here to return to the Main Menu!
         </p>
-        <PostGameModal />
       </div>
     );
   }

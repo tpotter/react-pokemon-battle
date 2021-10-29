@@ -10,28 +10,19 @@
 
         #dino-pen-flex {
             display: flex;
-            width: 100%;
-            transition: width 0.2s ease-in 0s;
+            flex-wrap: wrap;
+            width: 49%;
+            //transition: width 0.2s ease-in 0s;
         }
     
         #dino-detail-container {
-            background-color: #0a4335;
+            //background-color: #0a4335;
             display: block;
-            width: 0%;
+            width: 49%;
             transition: width 0.2s ease-in 0s;
         }
 
         
-    }
-
-    #dino-pen-content.dino-detail-expanded {
-        #dino-pen-flex {
-            width: 49%;
-        }
-
-        #dino-detail-container {
-            width: 49%;
-        }
     }
     
     .mini-dino-icon {
