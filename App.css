@@ -98,7 +98,9 @@ h5 {
 
 #hero-name,
 #enemy-name {
-  letter-spacing: -4px; }
+  letter-spacing: 4px !important;
+  overflow:hidden; 
+}
 
 #text-box {
   background-color: #4b4f53;
