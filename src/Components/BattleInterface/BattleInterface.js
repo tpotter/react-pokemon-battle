@@ -41,7 +41,9 @@ function BattleInterface(props) {
     function enemyTurn(enemyAttackName, enemyAttackDamage) {
         enemyAttackDamage = enemyAttackDamage + Math.floor(Math.random() * 11);
         // first, check if enemy fainted. End Game if they did.
-        if (enemyHP === 0) {   
+        console.log("Entered Enemy HP: " + enemyHP);
+        if (enemyHP === 0) { 
+            console.log("Entered Enemy Faint Phase");  
             setTextMessageOne(`${props.opponent.dinosolName} fainted.`);
             setTextMessageTwo(`${props.player.dinosolName} wins!`);
             setEnemyFaint(true);

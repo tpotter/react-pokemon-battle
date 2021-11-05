@@ -197,13 +197,17 @@ h5 {
 
 #hero-name,
 #enemy-name {
+    //display: block;
     letter-spacing: -4px;
+    //text-overflow: ellipsis;
+    //overflow: hidden;
+    //max-width: 80%;
 }
 
 #text-box {
     background-color: #4b4f53;
     position: relative;
-    top: 190px;
+    top: 140px;
     height: 150px;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -223,6 +227,9 @@ h5 {
 }
 
 .attack-container {
+    border-color: #999999;
+    border-style: solid;
+    border-width: 1px;
     width: 50%;
     display: inline-block;
     height: 50%;
