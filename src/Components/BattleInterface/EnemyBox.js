@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DinosolAvatar from "../Dinosol/DinosolAvatar";
 import EnemyAvatar from "../Dinosol/EnemyAvatar";
 
 export class EnemyBox extends Component {
@@ -59,8 +60,7 @@ export class EnemyBox extends Component {
 
           {/* ENEMY POKEMON AVATAR PICTURE */}
           <div className="mr-sm-4 avatar-box">
-            <EnemyAvatar enemyFaint={this.props.enemyFaint} />
-
+            <DinosolAvatar faint={this.props.enemyFaint} dinoside="opponent" dinoimage={this.props.dinoimage}  />
             <div className="oval" />
           </div>
           {/* END ENEMY POKEMON AVATAR PICTURE */}

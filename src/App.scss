@@ -4,15 +4,30 @@
 @import "./Components/DinoPen/ExpBar.scss";
 @import "./Components/Leaderboard/Leaderboard.scss";
 @import "./Components/Utility/DinosolTable.scss";
+@import "./Components/DinoSelection/dinoSelection.scss";
+@import "./Components/Dinosol/dinoRadio.scss";
+@import "./Components/OpponentGeneration/opponentGeneration.scss";
+@import "./Components/OpponentGeneration/dinoCard.scss";
+
+@font-face {
+    font-family: "Gilroy-Light";
+    src: url("./Resources/font/Gilroy-Light.otf");
+}
+
+@font-face {
+    font-family: "Gilroy-Bold";
+    src: url("./Resources/font/Gilroy-ExtraBold.otf");
+}
 
 body {
-    font-family: "Share Tech Mono", monospace;
+    //font-family: "Share Tech Mono", monospace;
+    font-family: "Gilroy-Light";
 }
 
 body,
 html,
 #root {
-    height: 100% !important;
+    height: 100vh;
     /* background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%); */
     //background-color: #101921;
     //background-color: #22002e;
@@ -45,6 +60,12 @@ h5 {
 
 .hide {
     opacity: 0;
+}
+
+.battle-container {
+    background: linear-gradient(135deg, #060009, #38004a);
+    /*height: 100vh !important;
+    width: 100% !important;*/
 }
 
 
@@ -88,6 +109,7 @@ h5 {
     }
 
     h1 {
+        font-family: "Gilroy-Bold";
         font-size: 3.2em;
         text-align: center;
     }
@@ -181,13 +203,17 @@ h5 {
 
 #hero-name,
 #enemy-name {
+    //display: block;
     letter-spacing: -4px;
+    //text-overflow: ellipsis;
+    //overflow: hidden;
+    //max-width: 80%;
 }
 
 #text-box {
     background-color: #4b4f53;
     position: relative;
-    top: 190px;
+    top: 140px;
     height: 150px;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -207,15 +233,24 @@ h5 {
 }
 
 .attack-container {
+    border-color: #999999;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
     width: 50%;
     display: inline-block;
     height: 50%;
     line-height: 60px;
     text-align: center;
+    transition: background-color 0.2s ease-in 0s;
+}
+
+.attack-container:hover {
+    background-color: #7F01D2;
 }
 
 .move-pointer {
-    cursor: pointer;
+    
     padding: 2px 5px;
     font-size: 18px;
     color: white;
@@ -239,7 +274,7 @@ h5 {
 @media screen and (min-width: 769px) {
     .move-pointer:hover,
     #play-again-text:hover {
-        color: #c9def8;
+        //color: #c9def8;
     }
 }
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DinosolAvatar from "../Dinosol/DinosolAvatar";
 import PlayerAvatar from "../Dinosol/PlayerAvatar";
 
 export class PlayerBox extends Component {
@@ -22,14 +23,14 @@ export class PlayerBox extends Component {
         <div id="hero-container">
           {/* HERO POKEMON AVATAR PICTURE */}
           <div className="avatar-box ml-sm-5">
-            <PlayerAvatar playerFaint={this.props.playerFaint} />
+            <DinosolAvatar faint={this.props.playerFaint} dinoside="player" dinoimage={this.props.dinoimage}  />
 
             <div className="oval" />
           </div>
           {/* END HERO POKEMON AVATAR PICTURE */}
 
           {/* HERO POKEMON INFO BOX */}
-          <div class="w-100">
+          <div className="w-100">
             <div id="hero-info-box">
               <div className="d-flex justify-content-between align-items-center">
                 <h2 id="hero-name">{this.props.playerName}</h2>
@@ -65,19 +66,8 @@ export class PlayerBox extends Component {
               </div>
             </div>
             {/* END HERO POKEMON INFO BOX */}
-            <div class="team-container d-flex justify-content-between">
-              <div class="hero-border mr-1 ml-1 parallelogram">
-                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
-              </div>
-              <div class="hero-border mr-1 ml-1 parallelogram">
-                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
-              </div>
-              <div class="hero-border mr-1 ml-1 parallelogram">
-                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
-              </div>
-              <div class="hero-border mr-1 ml-1 parallelogram">
-                <img class="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
-              </div>
+            <div className="team-container d-flex justify-content-between">
+              
             </div>
           </div>
         </div>
@@ -88,3 +78,22 @@ export class PlayerBox extends Component {
 }
 
 export default PlayerBox;
+
+
+
+/*
+
+<div className="hero-border mr-1 ml-1 parallelogram">
+                <img className="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
+              </div>
+              <div className="hero-border mr-1 ml-1 parallelogram">
+                <img className="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
+              </div>
+              <div className="hero-border mr-1 ml-1 parallelogram">
+                <img className="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
+              </div>
+              <div className="hero-border mr-1 ml-1 parallelogram">
+                <img className="team-image" src="https://dinosols.app/images/dactyl.png" alt=""/>
+              </div>
+
+*/

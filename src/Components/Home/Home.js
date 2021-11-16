@@ -12,14 +12,10 @@ function Home(props) {
                     <li className="main-menu-option" onClick={props.viewupdate.bind(null,1)} >Start Battle!</li><br />
                     <li className="main-menu-option" onClick={props.viewupdate.bind(null,3)} >Leaderboards</li><br />
                     <li className="main-menu-option" onClick={props.viewupdate.bind(null,4)} >View My Dinosols</li><br />
-                    <li className="main-menu-option" onClick={props.viewupdate.bind(null,5)} >Buy Dinosols</li><br />
+                    <li className="main-menu-option" onClick={props.viewupdate.bind(null,6)} >Buy Dinosols</li><br />
                     <li className="main-menu-option" onClick={handleSignOutFromWallet} >Sign Out From My Wallet</li><br />
                 </ul>
-            </div>
-            <div id="home-decor">
-
-            </div>
-            
+            </div>            
         </div>
     );
 }

@@ -1,0 +1,16 @@
+.dino-card-container {
+    width: 100%;
+
+    img {
+        border-radius: 50%;
+        display: block;
+        width: 100%;
+    }
+
+    h3 {
+        font-size: 2em;
+        margin-top: 24px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}
