@@ -13,7 +13,7 @@ function DinosolAvatar(props) {
         anim = "hide";
     }
 
-    console.log(props.dinoimage);
+    //console.log(props.dinoimage);
     return ( <
         div className = { anim } >
         <img className = "avatar"

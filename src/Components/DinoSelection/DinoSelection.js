@@ -22,7 +22,13 @@ function DinoSelection(props) {
     }
     
     function handleDinoUpdate(dinoId) {
-        props.currentupdater(props.dinomap[dinoId]);
+        if (props.battleaccount)
+        {
+            console.log("handleDinoUpdate: " + props.battleaccount.toString());
+        }
+        //props.currentupdater(props.dinomap[dinoId]);
+        console.log(dinoId);
+        props.currentupdater(dinoId);
     }
     
     function proceedToOpponentGeneration() {
@@ -34,7 +40,8 @@ function DinoSelection(props) {
     }
     
     function renderSelectedDinosolImage() {
-        const imgToDisplay = (props.currentdino !== null) ? props.currentdino.dinosolImage : DinoNotSelected;
+        console.log(props.currentdino);
+        const imgToDisplay = (props.currentdino !== null) ? props.dinomap[props.currentdino].dinosolImage : DinoNotSelected;
         const backgroundStyle = {
             backgroundImage: `url(${imgToDisplay})`
         };
