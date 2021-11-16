@@ -2,11 +2,11 @@ import React from "react";
 
 function Attacks(props) {
   return (
-    <div className="attack-container">
+    <div className="attack-container" onClick={() => props.handleAttackClick(props.details.attackName, props.details.attackDamage)}>
       <div>
         <span
           className="move-pointer"
-          onClick={() => props.handleAttackClick(props.details.attackName, props.details.attackDamage)}>
+          >
           { props.details.attackName }
         </span>
       </div>

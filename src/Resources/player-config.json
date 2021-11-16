@@ -246,6 +246,211 @@
                 }
             ],
             "dinosolBattleRecord": []
+        },
+        {
+            "dinosolId": "9007",
+            "dinosolName": "Ddddddinosols",
+            "dinosolImage": "https://dinosols.app/images/Dino_dubya.png",
+            "dinosolHP": 200,
+            "dinosolLevel": 41,
+            "dinosolExperience": 5050,
+            "prevExpThreshold": 5000,
+            "nextLevelExp": 6000, 
+            "dinosolAttacks": [
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                }
+            ],
+            "dinosolBattleRecord": []
+        },
+        {
+            "dinosolId": "9008",
+            "dinosolName": "Ddddddinosols",
+            "dinosolImage": "https://dinosols.app/images/Dino_dubya.png",
+            "dinosolHP": 200,
+            "dinosolLevel": 41,
+            "dinosolExperience": 5050,
+            "prevExpThreshold": 5000,
+            "nextLevelExp": 6000, 
+            "dinosolAttacks": [
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                }
+            ],
+            "dinosolBattleRecord": []
+        },
+        {
+            "dinosolId": "9009",
+            "dinosolName": "Ddddddinosols",
+            "dinosolImage": "https://dinosols.app/images/Dino_dubya.png",
+            "dinosolHP": 200,
+            "dinosolLevel": 41,
+            "dinosolExperience": 5050,
+            "prevExpThreshold": 5000,
+            "nextLevelExp": 6000, 
+            "dinosolAttacks": [
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                }
+            ],
+            "dinosolBattleRecord": []
+        },
+        {
+            "dinosolId": "9010",
+            "dinosolName": "Ddddddinosols",
+            "dinosolImage": "https://dinosols.app/images/Dino_dubya.png",
+            "dinosolHP": 200,
+            "dinosolLevel": 41,
+            "dinosolExperience": 5050,
+            "prevExpThreshold": 5000,
+            "nextLevelExp": 6000, 
+            "dinosolAttacks": [
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                }
+            ],
+            "dinosolBattleRecord": []
+        },
+        {
+            "dinosolId": "9011",
+            "dinosolName": "Ddddddinosols",
+            "dinosolImage": "https://dinosols.app/images/Dino_dubya.png",
+            "dinosolHP": 200,
+            "dinosolLevel": 41,
+            "dinosolExperience": 5050,
+            "prevExpThreshold": 5000,
+            "nextLevelExp": 6000, 
+            "dinosolAttacks": [
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                },
+                {
+                    "attackName": "Bite",
+                    "attackDamage": 15,
+                    "attackEffect": null,
+                    "effectChance": 0,
+                    "criticalChance": 0.15
+                }
+            ],
+            "dinosolBattleRecord": []
         }
     ]
 }

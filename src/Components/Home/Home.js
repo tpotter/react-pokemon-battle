@@ -18,11 +18,7 @@ function Home(props) {
                     <li className="main-menu-option" onClick={props.viewupdate.bind(null,6)} >Buy Dinosols</li><br />
                     <li className="main-menu-option" onClick={handleSignOutFromWallet} >Sign Out From My Wallet</li><br />
                 </ul>
-            </div>
-            <svg id="home-decor">
-                <polygon  />
-            </svg>
-            
+            </div>            
         </div>
     );
 }
