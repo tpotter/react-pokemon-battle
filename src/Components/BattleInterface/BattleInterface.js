@@ -100,8 +100,8 @@ function BattleInterface(props) {
     };
    
     return ( 
-        <div className = "container h-100" >
-            <div className = "row row h-100 justify-content-center align-items-center" >
+        <div className = " battle-container" >
+            <div className = "row row justify-content-center align-items-center" >
                 <div className = "col-sm-12" > { /* BATTLE SCREEN CONTAINER */ } 
                     <div id = "battle-container" className = "px-2 mx-auto" >
                         <EnemyBox enemyName = { props.opponent.dinosolName }
@@ -164,3 +164,7 @@ function BattleInterface(props) {
 }
 
 export default BattleInterface;
+
+//container h-100
+
+//h-100
