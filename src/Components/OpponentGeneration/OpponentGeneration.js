@@ -71,7 +71,7 @@ function OpponentGeneration(props) {
             viewJsx = (
                 <>
                     <h1>Waiting for a Challenger...</h1>
-                    <h2>Battle ID: {battleAccount}</h2>
+                    <h3>Battle ID: {battleAccount}</h3>
                 </>
             );
         } else {
@@ -128,6 +128,7 @@ async function getOpponent(props) {
         console.log("Resume an already entered battle.");
         //props.battleupdater(new PublicKey(playerMeta.battleAuthority));
         battleAccount = new PublicKey(playerMeta.battleAuthority);
+        props.battleupdater(battleAccount);
     }
     //console.log(playerMeta.battleAuthority);
     //console.log(props.battleaccount);
@@ -238,7 +239,7 @@ async function getOpponent(props) {
         ],
     };
 
-    props.battleupdater(battleAccount);
+    //props.battleupdater(battleAccount);
     return opponent;
 }
 
