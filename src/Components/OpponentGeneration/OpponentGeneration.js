@@ -203,6 +203,7 @@ async function getOpponent(props) {
         prevExpThreshold: 0,
         dinosolExperience: gamemeta.experience,
         dinosolHP: gamemeta.currStats.health,
+        dinosolMaxHP: gamemeta.levelStats.health,
         dinosolId: player,
         dinosolImage: data.image,
         dinosolLevel: gamemeta.level,

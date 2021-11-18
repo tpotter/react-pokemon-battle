@@ -200,6 +200,7 @@ async function createDinosolMap() {
             prevExpThreshold: 0,
             dinosolExperience: gamemeta.experience,
             dinosolHP: gamemeta.currStats.health,
+            dinosolMaxHP: gamemeta.levelStats.health,
             dinosolId: account.token,
             dinosolImage: data.image,
             dinosolLevel: gamemeta.level,
