@@ -14,9 +14,10 @@ import DinoSelection from "./Components/DinoSelection/DinoSelection";
 import OpponentGeneration from "./Components/OpponentGeneration/OpponentGeneration";
 import BattleInterface from "./Components/BattleInterface/BattleInterface";
 import JoinBattle from "./Components/JoinBattle/JoinBattle";
+import DevMenu from "./Components/DevMenu/DevMenu";
 
 import { decodeMetadata } from "./schema";
-import {moveIdToName} from "./helpers";
+import { moveIdToName } from "./helpers";
 
 const METADATA_PUBKEY = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
 const GAME_METADATA_PUBKEY = new PublicKey("4iqJsF4JLz8iLuvMxYvHchtG3wqiZdsNEp1EGPphKVXw");
@@ -114,6 +115,16 @@ function renderCurrentView(currView,
                 <JoinBattle viewupdate={viewUpdater}
                     battleaccount={battleAccount}
                     battleupdater={battleAccountUpdater}
+                />
+            );
+            break;
+        case 8: //Join Existing Battle
+            viewJsx = (
+                <DevMenu viewupdate={viewUpdater}
+                    battleaccount={battleAccount}
+                    battleupdater={battleAccountUpdater}
+                    playerdino={playerDinosol}
+                    dinomap={playerDinosolMap}
                 />
             );
             break;

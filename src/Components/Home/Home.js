@@ -16,6 +16,7 @@ function Home(props) {
                         <li className="main-menu-option" onClick={props.viewupdate.bind(null, 3)} >Leaderboards</li><br />
                         <li className="main-menu-option" onClick={props.viewupdate.bind(null, 4)} >View My Dinosols</li><br />
                         <li className="main-menu-option" onClick={props.viewupdate.bind(null, 6)} >Buy Dinosols</li><br />
+                        <li className="main-menu-option" onClick={props.viewupdate.bind(null, 8)} >Developer Menu</li><br />
                         <li className="main-menu-option" onClick={handleSignOutFromWallet} >Sign Out From My Wallet</li><br />
                     </ul>
                 </div>
