@@ -59,7 +59,21 @@ function OpponentGeneration(props) {
         let viewJsx = null;
 
         if (loading) {
-            viewJsx = <h1>Waiting for a Challenger...</h1>;
+            let battleAccount;
+            if (props.battleaccount)
+            {
+                battleAccount = props.battleaccount.toString();
+            }
+            else
+            {
+                battleAccount = "";
+            }
+            viewJsx = (
+                <>
+                    <h1>Waiting for a Challenger...</h1>
+                    <h2>Battle ID: {battleAccount}</h2>
+                </>
+            );
         } else {
             console.log(props.playerdino);
             console.log(props.dinomap[props.playerdino]);
