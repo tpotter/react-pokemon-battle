@@ -7,7 +7,7 @@ function DinoFeature(props) {
         <div className="dino-feature-container">
             <div className="img-history-flex">
                 <h3>{props.dino.dinosolName}</h3>
-                <img className="dino-feature-image" src={props.dino.dinosolImage} />
+                <img className="dino-feature-image" src={props.dino.dinosolImage} alt="" />
             </div>
             <ExpBar level={props.dino.dinosolLevel} prevexp={props.dino.prevExpThreshold} currexp={props.dino.dinosolExperience} nextexp={props.dino.nextLevelExp} />
             <div>
