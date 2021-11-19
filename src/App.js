@@ -18,6 +18,7 @@ import JoinBattle from "./Components/JoinBattle/JoinBattle";
 import PhantomConnection from "./Components/Home/PhantomConnection";
 
 import { decodeMetadata } from "./schema";
+import ErrorPage from "./Components/Home/ErrorHome";
 
 const METADATA_PUBKEY = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
 const GAME_METADATA_PUBKEY = new PublicKey("4iqJsF4JLz8iLuvMxYvHchtG3wqiZdsNEp1EGPphKVXw");
@@ -28,87 +29,93 @@ function App() {
     const [playerDinosol, setPlayerDinosol] = useState(null);
     const [playerDinosolMap, setPlayerDinosolMap] = useState([]);
     const [opponentDinosol, setOpponentDinosol] = useState(null);
-    let [battleAccount, setBattleAccount] = useState(null);
+    const [battleAccount, setBattleAccount] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("")
 
     useEffect(() => {
         let dinoMap = {};
-        window.solana.connect().then(result => {
-            getNFTs().then(accounts => {
-                //console.log(accounts);
-                for (let account of accounts) {
-                    //console.log(account);
-                    getGameMetadata(account.token).then(gamemeta => {
-                        //console.log(gamemeta);
-                        dinoMap = PlayerConfig.playerDinosols.reduce(function (map, dino) {
-                            map[dino.dinosolId] = dino;
-                            return map;
-                        }, {});
-                        //console.log(dinoMap);
+        try {
+            window.solana.connect().then(result => {
+                getNFTs().then(accounts => {
+                    //console.log(accounts);
+                    for (let account of accounts) {
+                        //console.log(account);
+                        getGameMetadata(account.token).then(gamemeta => {
+                            //console.log(gamemeta);
+                            dinoMap = PlayerConfig.playerDinosols.reduce(function (map, dino) {
+                                map[dino.dinosolId] = dino;
+                                return map;
+                            }, {});
+                            //console.log(dinoMap);
 
-                        dinoMap = {};
+                            dinoMap = {};
 
-                        fetch(account.metadata.data.data.uri).then(metadataData => {
-                            metadataData.json().then(data => {
-                                //console.log(data);
+                            fetch(account.metadata.data.data.uri).then(metadataData => {
+                                metadataData.json().then(data => {
+                                    //console.log(data);
 
-                                dinoMap[account.token] = {
-                                    dinosolBattleRecord: [],
-                                    nextLevelExp: 0,
-                                    prevExpThreshold: 0,
-                                    dinosolExperience: gamemeta.experience,
-                                    dinosolHP: gamemeta.currStats.health,
-                                    dinosolId: account.token,
-                                    dinosolImage: data.image,
-                                    dinosolLevel: gamemeta.level,
-                                    dinosolName: account.metadata.data.data.name,
-                                    dinosolAttacks: [
-                                        {
-                                            attackDamage: gamemeta.currStats.attack,
-                                            attackEffect: gamemeta.move0.status_effect,
-                                            attackName: moveIdToName(gamemeta.move0.move_id),
-                                            criticalChance: 0,
-                                            effectChance: gamemeta.move0.status_effect_chance,
-                                        },
-                                        {
-                                            attackDamage: gamemeta.currStats.attack,
-                                            attackEffect: gamemeta.move1.status_effect,
-                                            attackName: moveIdToName(gamemeta.move1.move_id),
-                                            criticalChance: 0,
-                                            effectChance: gamemeta.move1.status_effect_chance,
-                                        },
-                                        {
-                                            attackDamage: gamemeta.currStats.attack,
-                                            attackEffect: gamemeta.move2.status_effect,
-                                            attackName: moveIdToName(gamemeta.move2.move_id),
-                                            criticalChance: 0,
-                                            effectChance: gamemeta.move2.status_effect_chance,
-                                        },
-                                        {
-                                            attackDamage: gamemeta.currStats.attack,
-                                            attackEffect: gamemeta.move3.status_effect,
-                                            attackName: moveIdToName(gamemeta.move3.move_id),
-                                            criticalChance: 0,
-                                            effectChance: gamemeta.move3.status_effect_chance,
-                                        },
-                                    ],
-                                };
-                                console.log(dinoMap);
+                                    dinoMap[account.token] = {
+                                        dinosolBattleRecord: [],
+                                        nextLevelExp: 0,
+                                        prevExpThreshold: 0,
+                                        dinosolExperience: gamemeta.experience,
+                                        dinosolHP: gamemeta.currStats.health,
+                                        dinosolId: account.token,
+                                        dinosolImage: data.image,
+                                        dinosolLevel: gamemeta.level,
+                                        dinosolName: account.metadata.data.data.name,
+                                        dinosolAttacks: [
+                                            {
+                                                attackDamage: gamemeta.currStats.attack,
+                                                attackEffect: gamemeta.move0.status_effect,
+                                                attackName: moveIdToName(gamemeta.move0.move_id),
+                                                criticalChance: 0,
+                                                effectChance: gamemeta.move0.status_effect_chance,
+                                            },
+                                            {
+                                                attackDamage: gamemeta.currStats.attack,
+                                                attackEffect: gamemeta.move1.status_effect,
+                                                attackName: moveIdToName(gamemeta.move1.move_id),
+                                                criticalChance: 0,
+                                                effectChance: gamemeta.move1.status_effect_chance,
+                                            },
+                                            {
+                                                attackDamage: gamemeta.currStats.attack,
+                                                attackEffect: gamemeta.move2.status_effect,
+                                                attackName: moveIdToName(gamemeta.move2.move_id),
+                                                criticalChance: 0,
+                                                effectChance: gamemeta.move2.status_effect_chance,
+                                            },
+                                            {
+                                                attackDamage: gamemeta.currStats.attack,
+                                                attackEffect: gamemeta.move3.status_effect,
+                                                attackName: moveIdToName(gamemeta.move3.move_id),
+                                                criticalChance: 0,
+                                                effectChance: gamemeta.move3.status_effect_chance,
+                                            },
+                                        ],
+                                    };
+                                    console.log(dinoMap);
 
-                                setPlayerDinosolMap(dinoMap);
-                                setLoading(false);
+                                    setPlayerDinosolMap(dinoMap);
+                                    setLoading(false);
+                                });
                             });
                         });
-                    });
-                }
+                    }
+                });
             });
-        });
+        } catch(err) {
+            setErrorMessage("Looks like you tried to get started without the Phantom App.  Make sure you have that installed on your browser before launching Dinosol Kingdom.");
+            setCurrentView(-1);
+        }
     }, []);
 
     return (
         <div id="app-container">
             {
-                renderCurrentView(currentView, setCurrentView, playerDinosol, playerDinosolMap, setPlayerDinosol, opponentDinosol, setOpponentDinosol, battleAccount, setBattleAccount)
+                renderCurrentView(currentView, setCurrentView, playerDinosol, playerDinosolMap, setPlayerDinosol, opponentDinosol, setOpponentDinosol, battleAccount, setBattleAccount, errorMessage)
             }
         </div>
     );
@@ -122,10 +129,16 @@ function renderCurrentView(currView,
     opponentDinosol,
     opponentDinosolUpdater,
     battleAccount,
-    battleAccountUpdater) {
+    battleAccountUpdater,
+    errorMessage) {
     let viewJsx = null;
 
     switch (currView) {
+        case -1: //Error Page
+            viewJsx = (
+                <ErrorPage message={errorMessage} />
+            );
+            break;
         case 0: //Home page
             viewJsx = (
                 <Home viewupdate={viewUpdater} />
