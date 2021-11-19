@@ -9,9 +9,6 @@ import PlayerBox from "./PlayerBox";
 import PlayAgain from "./PlayAgain";
 
 import {
-    createBattleInstruction,
-    createGameMetadataInstruction,
-    joinBattleInstruction,
     enterBattleInstruction,
     chooseTeamMemberInstruction,
     submitActionInstruction,
@@ -22,28 +19,21 @@ import { sendTransactionPhantom } from '../../transactions';
 import {
     Stats,
     Move,
-    JoinBattleArgs,
-    CreateBattleArgs,
     ChooseTeamMemberArgs,
     SubmitActionArgs,
     BATTLE_SCHEMA,
     GAME_METADATA_SCHEMA,
     decodeBattle,
-    CreateGameMetadataArgs,
     decodeMetadata,
     UpdateStatsArgs,
     UpdateArgs,
     EnterBattleArgs,
 } from '../../schema';
 import {
-    Keypair,
     Connection,
-    SystemProgram,
-    TransactionInstruction,
     PublicKey,
 } from '@solana/web3.js';
 import { serialize } from 'borsh';
-import { getMetadata } from '../../various';
 import { getMetadataPDA } from '../../accounts';
 
 const METADATA_PUBKEY = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
@@ -75,48 +65,7 @@ function BattleInterface(props) {
                 setTextMessageOne(`Go ${props.dinomap[props.player].dinosolName}!`);
                 setPlayerFaint(false);
                 setTimeout(() => {
-                    setTextMessageOne("");
-
-                    let connection = new Connection("https://api.devnet.solana.com");
-                    let instructions = [];
-                    // Choose Team Members
-
-                    const p1TeamMemberArgs =
-                        new ChooseTeamMemberArgs({
-                            index: 0,
-                        });
-
-                    let p1TxnData = Buffer.from(
-                        serialize(
-                            BATTLE_SCHEMA,
-                            p1TeamMemberArgs,
-                        ),
-                    );
-
-                    instructions.push(
-                        chooseTeamMemberInstruction(
-                            props.battleaccount,
-                            window.solana.publicKey,
-                            window.solana.publicKey,
-                            p1TxnData,
-                            BATTLE_PUBKEY,
-                        ),
-                    );
-
-                    try {
-                        sendTransactionPhantom(
-                            connection,
-                            window.solana,
-                            instructions,
-                        ).then(res => {
-                            connection.confirmTransaction(res.txid, 'max').then(() => {
-                                // Force wait for max confirmations
-                                connection.getParsedConfirmedTransaction(res.txid, 'confirmed');
-                            });
-                        });
-                    } catch {
-                        // ignore
-                    }
+                    chooseTeamMember(props).then(() => { setTextMessageOne(""); });
                 }, 3000);
             }, 3000);
         }, 1000);
@@ -237,15 +186,14 @@ function BattleInterface(props) {
         opponentMeta = await getGameMetadata(opponentPubkey.toString());
         setPlayerHP(playerMeta.currStats.health);
         setEnemyHP(opponentMeta.currStats.health);
-        //enemyAttackDamage = enemyAttackDamage + Math.floor(Math.random() * 11);
-        // first, check if enemy fainted. End Game if they did.
-        //console.log("Entered Enemy HP: " + enemyHP);
+
         if (opponentMeta.currStats.health === 0) {
             console.log("Entered Enemy Faint Phase");
             setTextMessageOne(`${props.opponent.dinosolName} fainted.`);
             setTextMessageTwo(`${props.dinomap[props.player].dinosolName} wins!`);
             setEnemyFaint(true);
 
+            await endBattle(connection, playerMetaPDA);
             setTimeout(() => {
                 setGameOver(true);
             }, 3000);
@@ -255,57 +203,20 @@ function BattleInterface(props) {
             setTextMessageTwo(`${props.opponent.dinosolName} wins!`);
             setPlayerFaint(true);
 
+            await endBattle(connection, playerMetaPDA);
             setTimeout(() => {
                 setGameOver(true);
             }, 3000);
         }
-
-        if (gameOver === true) {
-            const enterBattleArgs =
-                new EnterBattleArgs({
-                    battle_authority: PublicKey.default,
-                });
-
-            let txnData = Buffer.from(
-                serialize(
-                    GAME_METADATA_SCHEMA,
-                    enterBattleArgs,
-                ),
-            );
-            instructions.push(
-                enterBattleInstruction(
-                    window.solana.publicKey,
-                    playerMetaPDA,
-                    window.solana.publicKey,
-                    txnData,
-                    GAME_METADATA_PUBKEY,
-                ),
-            );
-            const res = await sendTransactionPhantom(
-                connection,
-                window.solana,
-                instructions,
-            );
-
-            try {
-                await connection.confirmTransaction(res.txid, 'max');
-            } catch {
-                // ignore
-            }
-
-            // Force wait for max confirmations
-            await connection.getParsedConfirmedTransaction(res.txid, 'confirmed');
-        }
-        else {
-            setTextMessageOne("");
-            setTextMessageTwo("");
-        }
+        setTextMessageOne("");
+        setTextMessageTwo("");
     };
 
     function handleAttackClick(name, damage) {
+        // TODO: Single env instance.
         let connection = new Connection("https://api.devnet.solana.com");
         let instructions = [];
-        // Choose Team Members
+
         let playerdino = props.dinomap[props.player]
         console.log("Player Pubkey: " + playerdino.dinosolId);
         console.log("Opponent Pubkey: " + props.opponent.dinosolId);
@@ -328,11 +239,9 @@ function BattleInterface(props) {
             }
 
             console.log("Selected Move: " + JSON.stringify(newMove));
-            //console.log("Selected Move: " + Move(newMove));
 
             const p1MoveArgs =
                 new SubmitActionArgs({
-                    //move: {move_id: newMove.move_id, damage_modifier: newMove.damage_modifier, status_effect_chance: newMove.status_effect_chance, status_effect: newMove.status_effect},
                     move: new Move(newMove),
                 });
 
@@ -383,24 +292,24 @@ function BattleInterface(props) {
             });
         });
     };
-   
-    return ( 
-        <div className = " battle-container" >
-            <div className = "row row justify-content-center align-items-center" >
-                <div className = "col-sm-12" > { /* BATTLE SCREEN CONTAINER */ } 
-                    <div id = "battle-container" className = "px-2 mx-auto" >
-                        <EnemyBox enemyName = { props.opponent.dinosolName }
-                            enemyLevel = { props.opponent.dinosolLevel }
-                            enemyHP = { enemyHP }
-                            enemyMaxHP = { props.opponent.dinosolHP }
-                            enemyFaint = { enemyFaint }
-                            enemyRank = { props.opponent.enemyRank }
-                            dinoimage = { props.opponent.dinosolImage }
+
+    return (
+        <div className=" battle-container" >
+            <div className="row row justify-content-center align-items-center" >
+                <div className="col-sm-12" > { /* BATTLE SCREEN CONTAINER */}
+                    <div id="battle-container" className="px-2 mx-auto" >
+                        <EnemyBox enemyName={props.opponent.dinosolName}
+                            enemyLevel={props.opponent.dinosolLevel}
+                            enemyHP={enemyHP}
+                            enemyMaxHP={props.opponent.dinosolMaxHP}
+                            enemyFaint={enemyFaint}
+                            enemyRank={props.opponent.enemyRank}
+                            dinoimage={props.opponent.dinosolImage}
                         />
                         <PlayerBox playerName={props.dinomap[props.player].dinosolName}
                             playerLevel={props.dinomap[props.player].dinosolLevel}
                             playerHP={playerHP}
-                            playerMaxHP={props.dinomap[props.player].dinosolHP}
+                            playerMaxHP={props.dinomap[props.player].dinosolMaxHP}
                             playerFaint={playerFaint}
                             playerRank={props.dinomap[props.player].playerRank}
                             dinoimage={props.dinomap[props.player].dinosolImage}
@@ -462,6 +371,121 @@ async function getGameMetadata(token) {
     const metadata = decodeMetadata(metadataAccountInfo.data);
     console.log(metadata);
     return metadata;
+}
+
+async function chooseTeamMember(props) {
+    // TODO: Single env somewhere.
+    let connection = new Connection("https://api.devnet.solana.com");
+    let instructions = [];
+    // Choose Team Members (in this case the first dino)
+    const p1TeamMemberArgs =
+        new ChooseTeamMemberArgs({
+            index: 0,
+        });
+
+    let p1TxnData = Buffer.from(
+        serialize(
+            BATTLE_SCHEMA,
+            p1TeamMemberArgs,
+        ),
+    );
+
+    instructions.push(
+        chooseTeamMemberInstruction(
+            props.battleaccount,
+            window.solana.publicKey,
+            window.solana.publicKey,
+            p1TxnData,
+            BATTLE_PUBKEY,
+        ),
+    );
+
+    try {
+        sendTransactionPhantom(
+            connection,
+            window.solana,
+            instructions,
+        ).then(res => {
+            connection.confirmTransaction(res.txid, 'max').then(() => {
+                // Force wait for max confirmations
+                connection.getParsedConfirmedTransaction(res.txid, 'confirmed');
+            });
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+async function endBattle(connection, playerMetaPDA) {
+    let instructions = [];
+
+    const enterBattleArgs =
+        new EnterBattleArgs({
+            battle_authority: PublicKey.default.toString(),
+        });
+
+    let battleTxnData = Buffer.from(
+        serialize(
+            GAME_METADATA_SCHEMA,
+            enterBattleArgs,
+        ),
+    );
+    instructions.push(
+        enterBattleInstruction(
+            window.solana.publicKey,
+            playerMetaPDA,
+            window.solana.publicKey,
+            battleTxnData,
+            GAME_METADATA_PUBKEY,
+        ),
+    );
+
+    const metaAccountInfo = await connection.getAccountInfo(playerMetaPDA);
+    const metadata = decodeMetadata(metaAccountInfo.data);
+
+    const newStats = new Stats({
+        health: metadata.levelStats.health,
+        attack: metadata.currStats.attack,
+        defense: metadata.currStats.defense,
+        speed: metadata.currStats.speed,
+        agility: metadata.currStats.agility,
+    });
+
+    const statsArgs =
+        new UpdateStatsArgs({
+            stats: newStats,
+        });
+
+    let statsTxnData = Buffer.from(
+        serialize(
+            GAME_METADATA_SCHEMA,
+            statsArgs,
+        ),
+    );
+
+    instructions.push(
+        updateStatsInstruction(
+            playerMetaPDA,
+            window.solana.publicKey,
+            statsTxnData,
+            GAME_METADATA_PUBKEY,
+        ),
+    );
+
+    const res = await sendTransactionPhantom(
+        connection,
+        window.solana,
+        instructions,
+    );
+
+    try {
+        await connection.confirmTransaction(res.txid, 'max');
+    } catch (e) {
+        console.log(e);
+    }
+
+    // Force wait for max confirmations
+    await connection.getParsedConfirmedTransaction(res.txid, 'confirmed');
 }
 
 export default BattleInterface;

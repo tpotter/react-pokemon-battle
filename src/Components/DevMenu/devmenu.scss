@@ -1,0 +1,61 @@
+//22002e
+
+#devmenu-container {
+    background-image: url('../../Resources/img/dinosol-back.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fafafa;
+    position: relative;
+    height: 100vh;
+    text-align: center;
+    width: 100%;
+
+    #devmenu-text-container {
+        //left: 0;
+        //position: absolute;
+        //right: 0;
+        padding-top: 10%;
+        user-select: none;
+
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #222222;
+
+
+        #devmenu-title-container {
+            h1 {
+                font-family: "Gilroy-Bold";
+                font-size: 5em;
+                text-transform: uppercase;
+                
+            }
+        }
+    
+        #devmenu-menu-options {
+            list-style: none;
+            padding-left: 0;
+            .devmenu-option {
+                cursor: pointer;
+                display: inline-block;
+                font-family: "Gilroy-Bold";
+                font-size: 2.8em;
+                transition: font-size 0.2s ease-in 0s;
+            }
+    
+            .devmenu-option:hover {
+                font-size: 3.0em;
+            }
+    
+        }
+
+        #devmenu-textarea {
+            width:1000px;
+            height:1250px;
+            font-family:monospace;
+        }
+
+        #devmenu-decor {
+            position: absolute;
+        }
+    }
+    
+}
